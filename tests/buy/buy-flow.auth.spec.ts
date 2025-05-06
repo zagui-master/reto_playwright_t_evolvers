@@ -76,14 +76,16 @@ test.describe('Verificar el correcto funcionamiento del sistema de comprar del s
         (accumulator: number, currentValue: number) =>
           accumulator + currentValue
       );
-      const tax = 3.2;
+      const tax = itemTotal * productData[1].tax;
       const total = itemTotal + tax;
       expect(
         (await checkoutStepTwoPage.getDataFromPriceTotal()).itemTotal
       ).toBe(itemTotal);
-      expect((await checkoutStepTwoPage.getDataFromPriceTotal()).tax).toBe(tax);
+      expect((await checkoutStepTwoPage.getDataFromPriceTotal()).tax).toBe(
+        parseFloat(tax.toFixed(2))
+      );
       expect((await checkoutStepTwoPage.getDataFromPriceTotal()).total).toBe(
-        total
+        parseFloat(total.toFixed(2))
       );
     });
 
